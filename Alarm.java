@@ -6,9 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class Alarm implements Runnable{
-  JFrame f;
-  Thread t=null;
-  JButton b;
+  JFrame jframe;
+  Thread thread = null;
+  JButton button;
 
   int secsPerQuestion;
   int secsRemaining;
@@ -17,26 +17,26 @@ class Alarm implements Runnable{
     secsPerQuestion = secs;
     secsRemaining = secsPerQuestion;
 
-    f=new JFrame();
+    jframe = new JFrame();
 
 
-    b=new JButton();
-    b.setBounds(100,100,100,50);
-    b.addActionListener(new ActionListener() {
+    button=new JButton();
+    button.setBounds(100,100,100,50);
+    button.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         secsRemaining += secsPerQuestion;
       }
     });
 
-    f.add(b);
-    f.setSize(300,400);
-    f.setLayout(null);
-    f.setVisible(true);
+    jframe.add(button);
+    jframe.setSize(300,400);
+    jframe.setLayout(null);
+    jframe.setVisible(true);
 
 
-    t = new Thread(this);
-    t.start();
+    thread = new Thread(this);
+    thread.start();
   }
 
   public void run() {
@@ -47,7 +47,7 @@ class Alarm implements Runnable{
         }
         String secs = Integer.toString(secsRemaining);
         printTime(secs);
-        t.sleep(1000);
+        thread.sleep(1000);
         secsRemaining = secsRemaining - 1;
       }
 
@@ -58,6 +58,6 @@ class Alarm implements Runnable{
 
 
   public void printTime(String secs){
-    b.setText(secs);
+    button.setText(secs);
   }
 }
